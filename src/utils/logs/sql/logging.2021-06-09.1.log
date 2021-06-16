@@ -1,0 +1,114 @@
+sql [2021-06-09 08:29:31] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 08:29:31] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 08:29:31] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 08:30:55] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 08:30:55] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 08:30:55] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 19:55:33] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 19:55:33] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 19:55:33] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 19:56:38] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 19:56:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 19:56:38] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 19:57:09] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 19:57:09] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 19:57:09] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 20:02:04] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 20:02:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 20:02:04] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 20:02:34] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 20:02:34] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 20:02:34] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 20:02:52] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 20:02:52] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 20:02:52] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 20:03:34] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 20:03:34] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 20:03:34] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 20:03:46] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 20:03:46] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 20:03:46] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 20:04:06] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 20:04:06] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 20:04:06] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 20:04:18] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 20:04:18] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 20:04:18] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 23:12:11] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 23:12:11] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 23:12:11] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 23:12:51] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 23:12:51] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 23:12:51] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 23:17:41] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 23:17:41] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 23:17:41] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 23:20:50] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 23:20:50] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 23:20:50] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 23:21:12] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 23:21:12] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 23:21:12] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 23:21:43] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 23:21:43] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 23:21:43] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+
+sql [2021-06-09 23:22:32] [DEBUG]: Executing (default): SELECT 1+1 AS result
+
+sql [2021-06-09 23:22:32] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `Tests` (`id` INTEGER NOT NULL , `testName` VARCHAR(100) NOT NULL COMMENT '测试name', `testCode` VARCHAR(100) COMMENT '测试code', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+sql [2021-06-09 23:22:32] [DEBUG]: Executing (default): SHOW INDEX FROM `Tests`
+

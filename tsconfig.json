@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",                              
+    "module": "commonjs",                          
+    "lib": ["es2016","ESNext"],                                  
+    "removeComments": true,                     
+    "importHelpers": true,                      
+    "isolatedModules": true,                   
+    "strict": true,                               
+    "esModuleInterop": true,      
+    "resolveJsonModule":true,                 
+    "experimentalDecorators": true,             
+    "emitDecoratorMetadata": true,               
+    "skipLibCheck": true,                          
+    "forceConsistentCasingInFileNames": true,      
+    "outDir": "./dist",  
+  },
+  "include": ["src", "utils/db", "utils/logger/logger.ts"], 
+  "exclude": [
+    "node_modules"
+  ]
+}
