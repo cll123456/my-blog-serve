@@ -18,6 +18,7 @@
   "dependencies": {
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
+    "@vitalets/google-translate-api": "^7.0.0",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa2-swagger-ui": "^5.1.0",
