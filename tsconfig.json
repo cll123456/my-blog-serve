@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",                              
-    "module": "commonjs",                          
+    "module": "commonjs",                      
     "lib": ["es2016","ESNext"],                                  
     "removeComments": true,                     
     "importHelpers": true,                      
@@ -17,6 +17,6 @@
   },
   "include": ["src", "utils/db", "utils/logger/logger.ts"], 
   "exclude": [
-    "node_modules"
+    "node_modules",
   ]
 }
