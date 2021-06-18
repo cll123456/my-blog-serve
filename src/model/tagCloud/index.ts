@@ -1,8 +1,7 @@
 import sequelize from './../../utils/db/index';
 import { DataTypes } from 'sequelize'
 import { gunzipSync, gzipSync } from 'zlib';
-import translate from '@vitalets/google-translate-api';
-import {ArticleModel} from './../article'
+import { ArticleModel } from './../article'
 
 export const TagCloudModel = sequelize.define('TagCloud', {
   // 在这里定义模型属性
@@ -19,15 +18,8 @@ export const TagCloudModel = sequelize.define('TagCloud', {
     allowNull: false,
   },
   code: {
-    type: DataTypes.STRING(40),
+    type: DataTypes.STRING(100),
     comment: '标签的code,备用',
-    // code是自动生成
-    async set() {
-      // 获取名字，翻译成英文作为code
-      const name = this.getDataValue('name');
-      const res = await translate(name, { from: 'zh-CN', to: 'en' });
-      this.setDataValue('code', res)
-    }
   },
   logo: {
     type: DataTypes.TEXT,
@@ -35,6 +27,7 @@ export const TagCloudModel = sequelize.define('TagCloud', {
     get() {
       // 获取数据进行解压
       const storedValue = this.getDataValue('logo');
+      if (!storedValue) return '';
       const gzippedBuffer = Buffer.from(storedValue, 'base64');
       const unzippedBuffer = gunzipSync(gzippedBuffer);
       return unzippedBuffer.toString();
@@ -42,7 +35,7 @@ export const TagCloudModel = sequelize.define('TagCloud', {
     set(value: string) {
       // 存入的数据进行压缩
       const gzippedBuffer = gzipSync(value);
-      this.setDataValue('content', gzippedBuffer.toString('base64'));
+      this.setDataValue('logo', gzippedBuffer.toString('base64'));
     }
   }
 }, {
