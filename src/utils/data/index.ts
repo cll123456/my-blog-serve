@@ -1,3 +1,4 @@
+
 /**
  * 成功数据包裹
  * @param data 
@@ -9,3 +10,4 @@ export function dataFormate(data: unknown, code = 200){
     data
   }
 }
+

@@ -2,7 +2,7 @@ import Koa from 'koa';
 import router from './router/index'
 import './model/initModel'
 import { koaSwagger } from 'koa2-swagger-ui';
-import bodyParser  from 'koa-bodyparser'
+import bodyParser from 'koa-bodyparser'
 import cors from '@koa/cors'
 
 const app = new Koa();
@@ -23,7 +23,8 @@ app.use(
     swaggerOptions: {
       url: '/swagger.json', // example path to json
       showRequestHeaders: true,
-      layout: 'BaseLayout'
+      layout: "StandaloneLayout",
+      docExpansion: "none",
     },
     exposeSpec: true,
     hideTopbar: true
