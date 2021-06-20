@@ -3,7 +3,7 @@ import { DataTypes } from 'sequelize'
 import { gunzipSync, gzipSync } from 'zlib';
 import { ArticleModel } from './../article'
 
-export const TagCloudModel = sequelize.define('TagCloud', {
+export const TagCloudModel = sequelize.define('tagCloud', {
   // 在这里定义模型属性
   id: {
     type: DataTypes.INTEGER,
@@ -42,5 +42,5 @@ export const TagCloudModel = sequelize.define('TagCloud', {
   paranoid: true,
 })
 
-TagCloudModel.belongsToMany(ArticleModel, { through: 'TagCloudArticle' });
-ArticleModel.belongsToMany(TagCloudModel, { through: 'TagCloudArticle' });
+TagCloudModel.belongsToMany(ArticleModel, { through: 'TagCloudArticles' });
+ArticleModel.belongsToMany(TagCloudModel, { through: 'TagCloudArticles' });

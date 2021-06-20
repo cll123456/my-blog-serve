@@ -27,6 +27,12 @@ class TagCloudController {
     const res = await TagCloudService.findAll();
     ctx.body = dataFormate(res, 200)
   }
+
+  async findArticlesByTagCloudId(ctx: Application.ParameterizedContext){
+    // 获取标签id
+    const params = ctx
+    // const res = await TagCloudService.findArticlesByTagCloudId()
+  }
 }
 
 export default new TagCloudController();
