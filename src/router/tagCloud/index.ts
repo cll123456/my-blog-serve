@@ -54,4 +54,26 @@ genOpenApiMark('/tagCloud/findAll', {
     }
   }
 })
-router.get('/tagCloud/findAll', TagCloudController.findAll)
+router.get('/tagCloud/findAll', TagCloudController.findAll);
+
+/**
+ * 通过标签获取改标签下面的所有文章
+ */
+genOpenApiMark('/tagCloud/findArticlesByTagCloudId/{id}', {
+  get: {
+    description: '通过标签获取改标签下面的所有文章!',
+    summary: '通过标签获取改标签下面的所有文章',
+    tags: ['标签云'],
+    parameters: [{
+      name: 'id',
+      in: 'path',
+      description: '文章的id'
+    }],
+    responses: {
+      200: {
+        description: '标签下面的文章数据.'
+      }
+    }
+  }
+})
+router.get('/tagCloud/findArticlesByTagCloudId/:id', TagCloudController.findArticlesByTagCloudId)

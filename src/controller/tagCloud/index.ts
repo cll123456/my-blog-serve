@@ -28,10 +28,15 @@ class TagCloudController {
     ctx.body = dataFormate(res, 200)
   }
 
-  async findArticlesByTagCloudId(ctx: Application.ParameterizedContext){
+  /**
+   * 通过标签获取文章
+   * @param ctx 
+   */
+  async findArticlesByTagCloudId(ctx: Application.ParameterizedContext) {
     // 获取标签id
-    const params = ctx
-    // const res = await TagCloudService.findArticlesByTagCloudId()
+    const paramsObj = ctx.params
+    const res = await TagCloudService.findArticlesByTagCloudId(paramsObj.id);
+    ctx.body = dataFormate(res[0], 200);
   }
 }
 
