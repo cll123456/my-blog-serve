@@ -24,7 +24,7 @@ export const ReadLikeModel = sequelize.define('readLike', {
     comment: '文章点赞量',
     set(value: number) {
       // 默认设置0
-      this.setDataValue('readNum', value || 0)
+      this.setDataValue('likeNum', value || 0)
     }
   },
 }, {
