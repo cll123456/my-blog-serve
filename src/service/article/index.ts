@@ -17,7 +17,7 @@ class ArticleService {
     if (!param.pageSize || validator.isEmpty(param.pageSize)) {
       param.pageNo = '6';
     }
-    if(!param.title || validator.isEmpty(param.title)){
+    if (!param.title || validator.isEmpty(param.title)) {
       param.title = ''
     }
     // 查询总数
@@ -48,7 +48,7 @@ class ArticleService {
       ) AS mdt ON mdt.articleId = a.id 
     ORDER BY
       a.createdAt DESC 
-      LIMIT ${(Number(param.pageNo) - 1) * Number(param.pageSize) }, ${Number(param.pageSize)} ;`
+      LIMIT ${(Number(param.pageNo) - 1) * Number(param.pageSize)}, ${Number(param.pageSize)} ;`
     )
 
     return {
@@ -58,7 +58,63 @@ class ArticleService {
   }
 
   // 后序在写
-  async add(){
+  async add() {
+
+  }
+
+  /**
+   * 获取文章详情
+   * @param id {string}
+   */
+  async findArticleDetailById(id: string) {
+    if (validator.isEmpty(id) || Number(id) === NaN) {
+      throw Error('article id is not empty and must be a string number');
+    }
+    // 获取文章的点赞，文章阅读，标签等
+    const articleDetail = await sequelize.query(`
+    SELECT
+    a.content AS content,
+    mid.tags AS tags,
+    r.readNum AS readNum,
+    r.likeNum AS likeNum
+  FROM
+    articles AS a
+    JOIN (
+    SELECT
+      GROUP_CONCAT( tc.NAME, '' ) AS tags,
+      tca.articleId AS articleId 
+    FROM
+      tagclouds AS tc
+      LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
+      AND tca.articleId = ${id} 
+    ) AS mid ON mid.articleId = a.id
+    LEFT JOIN readlikes AS r ON r.articleId = a.id
+    `);
+    // 获取文章的评论和用户
+    const comments = await sequelize.query(`
+      SELECT
+      c.content AS content,
+      c.pid AS pid,
+      c.id AS id,
+      u.nickName AS nickName,
+      u.accounter AS accounter,
+      u.email AS email,
+      u.avatar AS avatar 
+    FROM
+      comments AS c,
+      users AS u 
+    WHERE
+      c.userId = u.id 
+      AND c.articleId = ${id} 
+      AND ISNULL( c.deletedAt ) 
+    ORDER BY
+      c.createdAt DESC
+    `)
+
+    return {
+      details: articleDetail[0][0],
+      comments: comments[0]
+    }
 
   }
 }

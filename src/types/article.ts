@@ -14,3 +14,7 @@ export interface IArticleListParam extends ParsedUrlQuery {
    */
   title: string,
 }
+
+export interface IArticleAddParam {
+  
+}

@@ -35,3 +35,28 @@ genOpenApiMark('/article/list', {
   }
 })
 router.get('/article/list', ArticleController.list)
+
+
+/**
+ * 获取文章详情
+ */
+ genOpenApiMark('/article/findArticleDetailById/{id}', {
+  get: {
+    description: '获取文章详情!',
+    summary: '获取文章详情',
+    tags: ['文章'],
+    parameters: [
+      {
+        name: 'id',
+        in: 'path',
+        description: '文章id',
+      }
+    ],
+    responses: {
+      200: {
+        description: '全部的list数据或者null.'
+      }
+    }
+  }
+})
+router.get('/article/findArticleDetailById/:id', ArticleController.findArticleDetailById)

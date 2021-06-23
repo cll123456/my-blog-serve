@@ -29,18 +29,7 @@ export const ArticleModel = sequelize.define('article', {
   content: {
     type: DataTypes.TEXT,
     comment: '文章内容，存一个html文件',
-    get() {
-      // 获取数据进行解压
-      const storedValue = this.getDataValue('content');
-      const gzippedBuffer = Buffer.from(storedValue, 'base64');
-      const unzippedBuffer = gunzipSync(gzippedBuffer);
-      return unzippedBuffer.toString();
-    },
-    set(value: string) {
-      // 存入的数据进行压缩
-      const gzippedBuffer = gzipSync(value);
-      this.setDataValue('content', gzippedBuffer.toString('base64'));
-    }
+    allowNull: true
   }
 }, {
   paranoid: true,
