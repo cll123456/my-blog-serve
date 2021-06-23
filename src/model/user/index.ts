@@ -2,6 +2,7 @@ import sequelize from './../../utils/db/index';
 import { DataTypes } from 'sequelize'
 import { gunzipSync, gzipSync } from 'zlib';
 import { CommentModel } from '../comment';
+import validator from 'validator';
 
 // 用户模型
 export const UserModel = sequelize.define('user', {
@@ -22,21 +23,15 @@ export const UserModel = sequelize.define('user', {
     comment: '账号',
     allowNull: false,
   },
+  email: {
+    type: DataTypes.STRING(255),
+    comment: '邮箱',
+    allowNull: false,
+  },
   avatar: {
     type: DataTypes.TEXT,
     comment: '用户头像',
-    get() {
-      // 获取数据进行解压
-      const storedValue = this.getDataValue('avatar');
-      const gzippedBuffer = Buffer.from(storedValue, 'base64');
-      const unzippedBuffer = gunzipSync(gzippedBuffer);
-      return unzippedBuffer.toString();
-    },
-    set(value: string) {
-      // 存入的数据进行压缩
-      const gzippedBuffer = gzipSync(value);
-      this.setDataValue('content', gzippedBuffer.toString('base64'));
-    }
+    allowNull: false,
   }
 }, {
   paranoid: true

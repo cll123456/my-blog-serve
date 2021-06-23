@@ -19,6 +19,7 @@
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
     "@napi-rs/pinyin": "^1.6.0",
+    "axios": "^0.21.1",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa2-swagger-ui": "^5.1.0",
