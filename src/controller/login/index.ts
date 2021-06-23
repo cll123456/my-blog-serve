@@ -43,8 +43,6 @@ class LoginController {
         let userRes = user.data as ILoginGitUpRes;
         // // 将用户数据保存到数据库
         const serverRes = await UserService.add({ avatar: userRes.avatar_url, email: userRes.email, accounter: userRes.login, nickName: userRes.name })
-        // console.log(serverRes, '-------serverRes');
-
         ctx.body = dataFormate(serverRes, 200)
         } catch (err) {
           ctx.body = dataFormate(err, 500)

@@ -1,4 +1,3 @@
-import validator from "validator";
 import { UserModel } from "../../model/user";
 import { IUserAddParams } from "../../types/user";
 
