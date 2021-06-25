@@ -65,5 +65,9 @@ export const MyselfInfoModel = sequelize.define('myself', {
   skill: {
     type: DataTypes.STRING(255),
     comment: '个人的技能'
+  },
+  hobby: {
+    type: DataTypes.STRING(255),
+    comment: '兴趣爱好'
   }
 })
