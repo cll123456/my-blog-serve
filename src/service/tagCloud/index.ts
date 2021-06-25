@@ -39,7 +39,19 @@ class TagCloudService {
    * @returns 
    */
   async findAll() {
-    return await TagCloudModel.findAll()
+  const res =  await sequelize.query(`
+    SELECT
+      t.*,
+      COUNT( tc.articleId ) AS articleCounts 
+    FROM
+      tagclouds AS t,
+      tagcloudarticles tc 
+    WHERE
+      t.id = tc.tagCloudId 
+    GROUP BY
+      t.NAME
+    `)
+    return res[0]
   }
 
   /**
