@@ -41,8 +41,10 @@ class TagCloudService {
   async findAll() {
   const res =  await sequelize.query(`
     SELECT
-      t.*,
-      COUNT( tc.articleId ) AS articleCounts 
+      t.id as id,
+      t.logo as imgUrl,
+      t.name as title,
+      COUNT( tc.articleId ) AS num 
     FROM
       tagclouds AS t,
       tagcloudarticles tc 
