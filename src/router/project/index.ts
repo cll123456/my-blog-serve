@@ -35,3 +35,22 @@ genOpenApiMark('/project/list', {
 })
 
 router.get('/project/list', ProjectController.list)
+
+
+
+/**
+ * 获取热门项目
+ */
+genOpenApiMark('/project/getHotProject',{
+  get: {
+    description: '获取热门项目!',
+    summary: '获取热门项目',
+    tags: ['项目'],
+    responses: {
+      200: {
+        description: '返回查询的list结果.'
+      }
+    }
+  }
+})
+router.get('/project/getHotProject', ProjectController.getHotProject)

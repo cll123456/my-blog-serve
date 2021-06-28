@@ -34,6 +34,19 @@ class ProjectService {
       ]
     })
   }
+
+  /**
+   * 获取热门项目
+   * @returns 
+   */
+  async getHotProject(){
+   return await ProjectModel.findAndCountAll({
+     limit: 5,
+     order: [
+      ['createdAt', 'DESC'],
+    ]
+   })
+  }
 }
 
 export default new ProjectService();
