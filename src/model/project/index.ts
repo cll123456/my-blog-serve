@@ -27,5 +27,9 @@ export const ProjectModel = sequelize.define('project', {
   gitupUrl: {
     type: DataTypes.STRING(100),
     comment: 'gitup 地址',
-  }
+  },
+  imgUrl: {
+    type: DataTypes.STRING(255),
+    comment: '项目图片地址'
+  },
 })

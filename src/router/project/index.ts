@@ -12,12 +12,18 @@ genOpenApiMark('/project/list', {
       {
         name: 'pageNo',
         in: 'query',
-        required: true
+        required: true,
+        description: '文章当前第几页'
       },
       {
         name: 'pageSize',
         in: 'query',
-        required: true
+        required: true,
+        description: '文章每页多少条'
+      },{
+        name: 'title',
+        in: 'query',
+        description: '文章标题'
       }
     ],
     responses: {

@@ -1,6 +1,7 @@
 import validator from "validator";
 import { ProjectModel } from "../../model/project";
 import { IProjectListParam } from "../../types/project";
+import {Op} from 'sequelize' 
 
 class ProjectService {
   /**
@@ -16,8 +17,16 @@ class ProjectService {
     if (!param.pageSize || validator.isEmpty(param.pageSize)) {
       param.pageNo = '6';
     }
+    if(!param.title || validator.isEmpty(param.title)){
+      param.title = ''
+    }
     // 查询分页数据
     return await ProjectModel.findAndCountAll({
+      where: {
+        title: {
+          [Op.like]: `%${param.title}%`
+        }
+      },
       limit: Number(param.pageSize),
       offset: (Number(param.pageNo) - 1) * Number(param.pageSize),
       order: [

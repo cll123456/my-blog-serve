@@ -9,4 +9,8 @@ export interface IProjectListParam extends ParsedUrlQuery {
    * 每页多少条
    */
   pageSize: string,
+  /**
+   * 模糊查询
+   */
+  title?: string,
 }
