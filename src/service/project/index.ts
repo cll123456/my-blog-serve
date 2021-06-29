@@ -5,7 +5,7 @@ import {Op} from 'sequelize'
 
 class ProjectService {
   /**
-   * 分页获取文章
+   * 分页获取项目
    * @param param 
    * @returns 
    */
@@ -15,7 +15,7 @@ class ProjectService {
       param.pageNo = '1';
     }
     if (!param.pageSize || validator.isEmpty(param.pageSize)) {
-      param.pageNo = '6';
+      param.pageSize = '6';
     }
     if(!param.title || validator.isEmpty(param.title)){
       param.title = ''
