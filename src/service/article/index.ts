@@ -1,6 +1,6 @@
 import validator from "validator";
 import { ArticleModel } from "../../model/article";
-import { IArticleListParam } from "../../types/article";
+import { IArticleListParam, IHotArticleListParam } from "../../types/article";
 import sequelize from "../../utils/db";
 
 class ArticleService {
@@ -15,13 +15,69 @@ class ArticleService {
       param.pageNo = '1';
     }
     if (!param.pageSize || validator.isEmpty(param.pageSize)) {
-      param.pageNo = '6';
+      param.pageSize = '12';
     }
     if (!param.title || validator.isEmpty(param.title)) {
       param.title = ''
     }
     // 查询总数
-    const totalPage = await sequelize.query(`select COUNT(*) as count FROM articles`);
+    const totalPage = await sequelize.query(`select COUNT(*) as count FROM articles as a where a.title like '%${param.title}%'`);
+    // 查询分页数据
+    const pageData = await sequelize.query(
+      `
+      SELECT
+        a.id AS id,
+        a.title AS title,
+        a.imgUrl AS imgUrl,
+        r.readNum AS readNum,
+        a.createdAt AS createdAt,
+        r.likeNum AS likeNum,
+        mdt.NAMES AS tagNames,
+        ( CASE WHEN c.comentNum IS NULL THEN 0 ELSE c.comentNum END ) comentNum 
+      FROM
+        articles AS a
+        JOIN readlikes AS r ON a.id = r.articleId 
+        AND a.title LIKE '%${param.title}%'
+        JOIN (
+        SELECT
+          GROUP_CONCAT( tc.NAME ) AS NAMES,
+          tca.articleId AS articleId 
+        FROM
+          tagclouds AS tc
+          JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
+        GROUP BY
+          tca.articleId 
+        ) AS mdt ON mdt.articleId = a.id
+        LEFT JOIN ( SELECT count( id ) AS comentNum, articleId AS carticleId FROM comments GROUP BY articleId ) AS c ON a.id = c.carticleId 
+      ORDER BY
+        a.createdAt DESC 
+        LIMIT ${(Number(param.pageNo) - 1) * Number(param.pageSize)}, ${Number(param.pageSize)} ;`
+    )
+
+    return {
+      rows: pageData[0],
+      count: (totalPage[0][0] as any).count
+    }
+  }
+
+  // 后序在写
+  async add() {
+
+  }
+
+  /**
+   * 获取热门文章
+   * @param param 
+   * @returns 
+   */
+  async getHotArticleList(param: IHotArticleListParam) {
+    // 判断数据是否为空
+    if (!param.pageNo || validator.isEmpty(param.pageNo)) {
+      param.pageNo = '1';
+    }
+    if (!param.pageSize || validator.isEmpty(param.pageSize)) {
+      param.pageSize = '5';
+    }
     // 查询分页数据
     const pageData = await sequelize.query(
       `SELECT
@@ -35,7 +91,6 @@ class ArticleService {
     FROM
       articles AS a
       JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%${param.title}%'
       LEFT JOIN (
       SELECT
         GROUP_CONCAT( tc.NAME ) AS NAMES,
@@ -50,16 +105,9 @@ class ArticleService {
       a.createdAt DESC 
       LIMIT ${(Number(param.pageNo) - 1) * Number(param.pageSize)}, ${Number(param.pageSize)} ;`
     )
-
     return {
       rows: pageData[0],
-      count: (totalPage[0][0] as any).count
     }
-  }
-
-  // 后序在写
-  async add() {
-
   }
 
   /**

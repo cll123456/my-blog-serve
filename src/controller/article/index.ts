@@ -1,5 +1,5 @@
 import Application from 'koa'
-import { IArticleListParam } from '../../types/article'
+import { IArticleListParam, IHotArticleListParam } from '../../types/article'
 import { dataFormate } from '../../utils/data';
 import ArticleService from './../../service/article'
 class ArticleController {
@@ -11,6 +11,17 @@ class ArticleController {
     // 获取查询参数
     const params = ctx.request.query as IArticleListParam
     const res = await ArticleService.list(params);
+    ctx.body = dataFormate(res, 200)
+  }
+
+  /**
+   * 获取热门文章
+   * @param ctx 
+   */
+  async getHotArticleList(ctx: Application.ParameterizedContext) {
+    // 获取查询参数
+    const params = ctx.request.query as IHotArticleListParam
+    const res = await ArticleService.getHotArticleList(params)
     ctx.body = dataFormate(res, 200)
   }
   /**
@@ -31,7 +42,7 @@ class ArticleController {
    * 添加文章
    * @param ctx 
    */
-  async add(ctx: Application.ParameterizedContext){
+  async add(ctx: Application.ParameterizedContext) {
     const param = ctx.request.body;
   }
 }
