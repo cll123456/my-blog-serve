@@ -10,15 +10,19 @@ class ArticleService {
    * @returns 
    */
   async list(param: IArticleListParam) {
+    let tagCloudsQL = ``;
     // 判断数据是否为空
-    if (!param.pageNo || validator.isEmpty(param.pageNo)) {
+    if (!param.pageNo || validator.isEmpty(param.pageNo) || isNaN(Number(param.pageNo))) {
       param.pageNo = '1';
     }
-    if (!param.pageSize || validator.isEmpty(param.pageSize)) {
+    if (!param.pageSize || validator.isEmpty(param.pageSize) || isNaN(Number(param.pageSize))) {
       param.pageSize = '12';
     }
     if (!param.title || validator.isEmpty(param.title)) {
       param.title = ''
+    }
+    if (param.tagCloudId && !validator.isEmpty(param.tagCloudId) && !isNaN(Number(param.tagCloudId))) {
+      tagCloudsQL = `AND tca.tagCloudId = ${param.tagCloudId}`
     }
     // 查询总数
     const totalPage = await sequelize.query(`select COUNT(*) as count FROM articles as a where a.title like '%${param.title}%'`);
@@ -44,7 +48,7 @@ class ArticleService {
           tca.articleId AS articleId 
         FROM
           tagclouds AS tc
-          JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
+          JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId ${tagCloudsQL}
         GROUP BY
           tca.articleId 
         ) AS mdt ON mdt.articleId = a.id
@@ -133,10 +137,10 @@ class ArticleService {
       tca.articleId AS articleId 
     FROM
       tagclouds AS tc
-      LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
+       JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
       AND tca.articleId = ${id} 
     ) AS mid ON mid.articleId = a.id
-    LEFT JOIN readlikes AS r ON r.articleId = a.id
+     JOIN readlikes AS r ON r.articleId = a.id
     `);
     // 获取文章的评论和用户
     const comments = await sequelize.query(`

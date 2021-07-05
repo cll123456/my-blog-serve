@@ -26,6 +26,11 @@ genOpenApiMark('/article/list', {
         in: 'query',
         description: '文章的标题，通过标题来模糊查询',
       },
+      {
+        name: 'tagCloudId',
+        in: 'query',
+        description: '文章的标签，通过标签查询',
+      },
     ],
     responses: {
       200: {

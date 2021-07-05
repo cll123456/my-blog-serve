@@ -1,4 +1,4 @@
-sql [2021-06-30 08:56:46] [DEBUG]: Executing (default): SELECT
+sql [2021-07-05 08:32:20] [DEBUG]: Executing (default): SELECT
       t.id as id,
       t.logo as imgUrl,
       t.name as title,
@@ -11,168 +11,105 @@ sql [2021-06-30 08:56:46] [DEBUG]: Executing (default): SELECT
     GROUP BY
       t.NAME
 
-sql [2021-06-30 08:56:58] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 08:56:58] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 08:56:58] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 08:56:58] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 08:57:02] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 08:57:02] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 6, 6;
-
-sql [2021-06-30 08:57:04] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 08:57:04] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 08:57:06] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 08:57:06] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 6, 6;
-
-sql [2021-06-30 08:57:07] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 08:57:07] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 08:57:09] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 08:57:09] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 6, 6;
-
-sql [2021-06-30 08:57:10] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 08:57:10] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 08:57:13] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 08:57:13] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 6, 6;
-
-sql [2021-06-30 08:57:15] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 08:57:15] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 08:57:42] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 08:57:42] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
+sql [2021-07-05 08:46:07] [DEBUG]: Executing (default): SELECT
+      t.id as id,
+      t.logo as imgUrl,
+      t.name as title,
+      COUNT( tc.articleId ) AS num 
     FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
+      tagclouds AS t,
+      tagcloudarticles tc 
+    WHERE
+      t.id = tc.tagCloudId 
+    GROUP BY
+      t.NAME
+
+sql [2021-07-05 08:48:39] [DEBUG]: Executing (default): SELECT
+      t.id as id,
+      t.logo as imgUrl,
+      t.name as title,
+      COUNT( tc.articleId ) AS num 
+    FROM
+      tagclouds AS t,
+      tagcloudarticles tc 
+    WHERE
+      t.id = tc.tagCloudId 
+    GROUP BY
+      t.NAME
+
+sql [2021-07-05 08:51:19] [DEBUG]: Executing (default): SELECT
+    a.content AS content,
+    mid.tags AS tags,
+    r.readNum AS readNum,
+    r.likeNum AS likeNum
+  FROM
+    articles AS a
+    JOIN (
+    SELECT
+      GROUP_CONCAT( tc.NAME, '' ) AS tags,
+      tca.articleId AS articleId 
+    FROM
+      tagclouds AS tc
+      LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
+      AND tca.articleId = 1 
+    ) AS mid ON mid.articleId = a.id
+    LEFT JOIN readlikes AS r ON r.articleId = a.id
+
+sql [2021-07-05 08:51:19] [DEBUG]: Executing (default): SELECT
+      c.content AS content,
+      c.pid AS pid,
+      c.id AS id,
+      u.nickName AS nickName,
+      u.accounter AS accounter,
+      u.email AS email,
+      u.avatar AS avatar 
+    FROM
+      comments AS c,
+      users AS u 
+    WHERE
+      c.userId = u.id 
+      AND c.articleId = 1 
+      AND ISNULL( c.deletedAt ) 
     ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
+      c.createdAt DESC
 
-sql [2021-06-30 08:57:57] [DEBUG]: Executing (default): SELECT `id`, `enName`, `znName`, `sex`, `selfIntroduce`, `birthday`, `startWork`, `schoolName`, `mayjor`, `education`, `companyName`, `postName`, `industry`, `skill`, `hobby`, `createdAt`, `updatedAt` FROM `myselves` AS `myself`;
-
-sql [2021-06-30 09:03:54] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
+sql [2021-07-05 08:53:22] [DEBUG]: Executing (default): SELECT
+    a.content AS content,
+    mid.tags AS tags,
+    r.readNum AS readNum,
+    r.likeNum AS likeNum
+  FROM
+    articles AS a
+    JOIN (
+    SELECT
+      GROUP_CONCAT( tc.NAME, '' ) AS tags,
+      tca.articleId AS articleId 
     FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
+      tagclouds AS tc
+      LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
+      AND tca.articleId = 2 
+    ) AS mid ON mid.articleId = a.id
+    LEFT JOIN readlikes AS r ON r.articleId = a.id
+
+sql [2021-07-05 08:53:22] [DEBUG]: Executing (default): SELECT
+      c.content AS content,
+      c.pid AS pid,
+      c.id AS id,
+      u.nickName AS nickName,
+      u.accounter AS accounter,
+      u.email AS email,
+      u.avatar AS avatar 
+    FROM
+      comments AS c,
+      users AS u 
     WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:14:29] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:14:29] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:14:29] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:14:29] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:14:33] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
-    FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
-    WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:14:33] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:14:33] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:14:33] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:14:33] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:14:45] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
-    FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
-    WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:14:46] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:14:46] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:14:46] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:14:46] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:14:48] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:14:48] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
+      c.userId = u.id 
+      AND c.articleId = 2 
+      AND ISNULL( c.deletedAt ) 
     ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
+      c.createdAt DESC
 
-sql [2021-06-30 09:14:54] [DEBUG]: Executing (default): SELECT
+sql [2021-07-05 08:54:12] [DEBUG]: Executing (default): SELECT
       t.id as id,
       t.logo as imgUrl,
       t.name as title,
@@ -185,43 +122,7 @@ sql [2021-06-30 09:14:54] [DEBUG]: Executing (default): SELECT
     GROUP BY
       t.NAME
 
-sql [2021-06-30 09:14:55] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:14:55] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:14:55] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:14:55] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:14:57] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:14:57] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
-    ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
-
-sql [2021-06-30 09:15:00] [DEBUG]: Executing (default): SELECT
+sql [2021-07-05 09:01:00] [DEBUG]: Executing (default): SELECT
       t.id as id,
       t.logo as imgUrl,
       t.name as title,
@@ -234,1390 +135,147 @@ sql [2021-06-30 09:15:00] [DEBUG]: Executing (default): SELECT
     GROUP BY
       t.NAME
 
-sql [2021-06-30 09:15:01] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:15:01] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
+sql [2021-07-05 09:17:57] [DEBUG]: Executing (default): SELECT
+    a.content AS content,
+    mid.tags AS tags,
+    r.readNum AS readNum,
+    r.likeNum AS likeNum
+  FROM
+    articles AS a
+    JOIN (
+    SELECT
+      GROUP_CONCAT( tc.NAME, '' ) AS tags,
+      tca.articleId AS articleId 
     FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
-    ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
+      tagclouds AS tc
+      LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
+      AND tca.articleId = 3 
+    ) AS mid ON mid.articleId = a.id
+    LEFT JOIN readlikes AS r ON r.articleId = a.id
 
-sql [2021-06-30 09:15:19] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
+sql [2021-07-05 09:17:57] [DEBUG]: Executing (default): SELECT
+      c.content AS content,
+      c.pid AS pid,
+      c.id AS id,
+      u.nickName AS nickName,
+      u.accounter AS accounter,
+      u.email AS email,
+      u.avatar AS avatar 
     FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
+      comments AS c,
+      users AS u 
     WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:15:20] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:15:20] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
+      c.userId = u.id 
+      AND c.articleId = 3 
+      AND ISNULL( c.deletedAt ) 
     ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
+      c.createdAt DESC
 
-sql [2021-06-30 09:15:23] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:15:23] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:15:23] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:15:23] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:15:55] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
+sql [2021-07-05 09:18:06] [DEBUG]: Executing (default): SELECT
+    a.content AS content,
+    mid.tags AS tags,
+    r.readNum AS readNum,
+    r.likeNum AS likeNum
+  FROM
+    articles AS a
+    JOIN (
+    SELECT
+      GROUP_CONCAT( tc.NAME, '' ) AS tags,
+      tca.articleId AS articleId 
     FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
+      tagclouds AS tc
+      LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
+      AND tca.articleId = 3 
+    ) AS mid ON mid.articleId = a.id
+    LEFT JOIN readlikes AS r ON r.articleId = a.id
+
+sql [2021-07-05 09:18:06] [DEBUG]: Executing (default): SELECT
+      c.content AS content,
+      c.pid AS pid,
+      c.id AS id,
+      u.nickName AS nickName,
+      u.accounter AS accounter,
+      u.email AS email,
+      u.avatar AS avatar 
+    FROM
+      comments AS c,
+      users AS u 
     WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
+      c.userId = u.id 
+      AND c.articleId = 3 
+      AND ISNULL( c.deletedAt ) 
+    ORDER BY
+      c.createdAt DESC
 
-sql [2021-06-30 09:15:58] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:15:58] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:15:58] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:15:58] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:16:13] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
+sql [2021-07-05 09:18:19] [DEBUG]: Executing (default): SELECT
+    a.content AS content,
+    mid.tags AS tags,
+    r.readNum AS readNum,
+    r.likeNum AS likeNum
+  FROM
+    articles AS a
+    JOIN (
+    SELECT
+      GROUP_CONCAT( tc.NAME, '' ) AS tags,
+      tca.articleId AS articleId 
     FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
+      tagclouds AS tc
+      LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
+      AND tca.articleId = 2 
+    ) AS mid ON mid.articleId = a.id
+    LEFT JOIN readlikes AS r ON r.articleId = a.id
+
+sql [2021-07-05 09:18:19] [DEBUG]: Executing (default): SELECT
+      c.content AS content,
+      c.pid AS pid,
+      c.id AS id,
+      u.nickName AS nickName,
+      u.accounter AS accounter,
+      u.email AS email,
+      u.avatar AS avatar 
+    FROM
+      comments AS c,
+      users AS u 
     WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:16:14] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:16:14] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:16:14] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:16:14] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:16:17] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:16:17] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
+      c.userId = u.id 
+      AND c.articleId = 2 
+      AND ISNULL( c.deletedAt ) 
     ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
+      c.createdAt DESC
 
-sql [2021-06-30 09:16:21] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
+sql [2021-07-05 09:18:23] [DEBUG]: Executing (default): SELECT
+    a.content AS content,
+    mid.tags AS tags,
+    r.readNum AS readNum,
+    r.likeNum AS likeNum
+  FROM
+    articles AS a
+    JOIN (
+    SELECT
+      GROUP_CONCAT( tc.NAME, '' ) AS tags,
+      tca.articleId AS articleId 
     FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
+      tagclouds AS tc
+      LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
+      AND tca.articleId = 3 
+    ) AS mid ON mid.articleId = a.id
+    LEFT JOIN readlikes AS r ON r.articleId = a.id
+
+sql [2021-07-05 09:18:23] [DEBUG]: Executing (default): SELECT
+      c.content AS content,
+      c.pid AS pid,
+      c.id AS id,
+      u.nickName AS nickName,
+      u.accounter AS accounter,
+      u.email AS email,
+      u.avatar AS avatar 
+    FROM
+      comments AS c,
+      users AS u 
     WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:16:22] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:16:22] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
+      c.userId = u.id 
+      AND c.articleId = 3 
+      AND ISNULL( c.deletedAt ) 
     ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
-
-sql [2021-06-30 09:16:24] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:16:24] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:16:24] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:16:24] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:16:44] [DEBUG]: Executing (default): SELECT `id`, `enName`, `znName`, `sex`, `selfIntroduce`, `birthday`, `startWork`, `schoolName`, `mayjor`, `education`, `companyName`, `postName`, `industry`, `skill`, `hobby`, `createdAt`, `updatedAt` FROM `myselves` AS `myself`;
-
-sql [2021-06-30 09:16:53] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
-    FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
-    WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:16:54] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:16:54] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
-    ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
-
-sql [2021-06-30 09:16:57] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:16:57] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:16:57] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:16:57] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:17:12] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
-    FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
-    WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:17:12] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:17:12] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:17:12] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:17:12] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:17:15] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:17:15] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
-    ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
-
-sql [2021-06-30 09:17:28] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
-    FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
-    WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:17:29] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:17:29] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
-    ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
-
-sql [2021-06-30 09:17:31] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:17:31] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:17:31] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:17:31] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:17:45] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
-    FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
-    WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:17:46] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:17:46] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
-    ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
-
-sql [2021-06-30 09:17:48] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:17:48] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:17:48] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:17:48] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:17:48] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:17:48] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:17:52] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:17:52] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 6, 6;
-
-sql [2021-06-30 09:17:54] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:17:54] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:17:57] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:17:57] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 6, 6;
-
-sql [2021-06-30 09:17:59] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:17:59] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:18:30] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:18:30] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:19:34] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
-    FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
-    WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:19:35] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:19:35] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:19:35] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:19:35] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:19:35] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:19:35] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:20:14] [DEBUG]: Executing (default): SELECT
-      t.id as id,
-      t.logo as imgUrl,
-      t.name as title,
-      COUNT( tc.articleId ) AS num 
-    FROM
-      tagclouds AS t,
-      tagcloudarticles tc 
-    WHERE
-      t.id = tc.tagCloudId 
-    GROUP BY
-      t.NAME
-
-sql [2021-06-30 09:20:14] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:20:14] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:20:14] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project`;
-
-sql [2021-06-30 09:20:14] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` ORDER BY `project`.`createdAt` DESC LIMIT 5;
-
-sql [2021-06-30 09:20:14] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:20:14] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:20:26] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles
-
-sql [2021-06-30 09:20:26] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
-    ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 10 ;
-
-sql [2021-06-30 09:22:33] [DEBUG]: Executing (default): SELECT count(*) AS `count` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%';
-
-sql [2021-06-30 09:22:33] [DEBUG]: Executing (default): SELECT `id`, `title`, `desc`, `projectUrl`, `gitupUrl`, `imgUrl`, `createdAt`, `updatedAt` FROM `projects` AS `project` WHERE `project`.`title` LIKE '%%' ORDER BY `project`.`createdAt` DESC LIMIT 0, 6;
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:01] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:29:21] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:37:16] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:04] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 09:40:22] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 09:40:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:22] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 09:40:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:22] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 09:40:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:22] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 09:40:23] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:23] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 09:40:23] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:23] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 09:40:23] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:23] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 09:40:23] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:23] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 09:40:23] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:40:23] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:41:53] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 09:42:59] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like
-
-sql [2021-06-30 09:48:36] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:49:08] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 09:49:11] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:50:59] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:54:38] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 09:55:04] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 09:55:05] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like
-
-sql [2021-06-30 09:55:20] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId 
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
-    ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 5 ;
-
-sql [2021-06-30 09:59:53] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like
-
-sql [2021-06-30 09:59:58] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:04] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:18] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:01:36] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 10:22:06] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 10:22:06] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:22:06] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 10:22:06] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:22:06] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 10:22:06] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:22:06] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 10:22:06] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:22:06] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 10:22:06] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:22:07] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 10:22:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:22:07] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 10:22:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:22:07] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 10:22:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:22:07] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like undefined
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:49:24] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 10:49:43] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like undefined
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 10:59:39] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 10:59:51] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like undefined
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:01:46] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 11:01:56] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like undefined
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like undefined
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:22] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:02:36] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 11:02:44] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles where title like undefined
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:03:13] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:04:07] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:25] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): SELECT 1+1 AS result
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '文章标题', `subTitle` VARCHAR(255) COMMENT '文章副标题', `imgUrl` VARCHAR(255) NOT NULL COMMENT '文章的图片，不能为空', `content` TEXT COMMENT '文章内容，存一个html文件', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): SHOW INDEX FROM `articles`
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `readLikes` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `readNum` INTEGER COMMENT '文章阅读量', `likeNum` INTEGER COMMENT '文章点赞量', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): SHOW INDEX FROM `readLikes`
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `nickName` VARCHAR(100) COMMENT '用户的昵称', `accounter` VARCHAR(100) NOT NULL COMMENT '账号', `email` VARCHAR(255) NOT NULL COMMENT '邮箱', `avatar` TEXT NOT NULL COMMENT '用户头像', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): SHOW INDEX FROM `users`
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `comments` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `content` TEXT COMMENT '评论内容', `pid` INTEGER COMMENT '父级id,用于处理评论的父级节点', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, `articleId` INTEGER, `userId` INTEGER, PRIMARY KEY (`id`), FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): SHOW INDEX FROM `comments`
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `myselves` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `enName` VARCHAR(100) COMMENT '英文名字', `znName` VARCHAR(100) COMMENT '中文名字', `sex` TINYINT(1) COMMENT '性别', `selfIntroduce` VARCHAR(255) COMMENT '个人简介', `birthday` VARCHAR(100) COMMENT '出生日期', `startWork` VARCHAR(100) COMMENT '开始工作', `schoolName` VARCHAR(100) COMMENT '学校名称', `mayjor` VARCHAR(100) COMMENT '专业', `education` VARCHAR(100) COMMENT '学历', `companyName` VARCHAR(100) COMMENT '所属公司名称', `postName` VARCHAR(100) COMMENT '岗位名称', `industry` VARCHAR(100) COMMENT '所属行业', `skill` VARCHAR(255) COMMENT '个人的技能', `hobby` VARCHAR(255) COMMENT '兴趣爱好', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): SHOW INDEX FROM `myselves`
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `projects` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `title` VARCHAR(255) NOT NULL COMMENT '项目的标题', `desc` TEXT COMMENT '项目描述', `projectUrl` VARCHAR(100) NOT NULL COMMENT '项目地址', `gitupUrl` VARCHAR(100) COMMENT 'gitup 地址', `imgUrl` VARCHAR(255) COMMENT '项目图片地址', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): SHOW INDEX FROM `projects`
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `tagClouds` (`id` INTEGER auto_increment UNIQUE  COMMENT '自增主键id', `name` VARCHAR(100) NOT NULL COMMENT '标签名称', `code` VARCHAR(100) COMMENT '标签的code,备用', `logo` TEXT COMMENT '云图标的logo,是一个base64位的的字符串', `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `deletedAt` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): SHOW INDEX FROM `tagClouds`
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): CREATE TABLE IF NOT EXISTS `TagCloudArticles` (`createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `tagCloudId` INTEGER , `articleId` INTEGER , PRIMARY KEY (`tagCloudId`, `articleId`), FOREIGN KEY (`tagCloudId`) REFERENCES `tagClouds` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
-
-sql [2021-06-30 11:05:38] [DEBUG]: Executing (default): SHOW INDEX FROM `TagCloudArticles`
-
-sql [2021-06-30 11:05:46] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles as a where a.title like '%%'
-
-sql [2021-06-30 11:05:46] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId AND a.title LIKE '%%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
-    ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 12 ;
-
-sql [2021-06-30 11:06:01] [DEBUG]: Executing (default): select COUNT(*) as count FROM articles as a where a.title like '%4%'
-
-sql [2021-06-30 11:06:01] [DEBUG]: Executing (default): SELECT
-      a.id AS id,
-      a.title AS title,
-      a.imgUrl AS imgUrl,
-      r.readNum AS readNum,
-      a.createdAt AS createdAt,
-      r.likeNum AS likeNum,
-      mdt.NAMES AS tagNames 
-    FROM
-      articles AS a
-      JOIN readlikes AS r ON a.id = r.articleId AND a.title LIKE '%4%'
-      LEFT JOIN (
-      SELECT
-        GROUP_CONCAT( tc.NAME ) AS NAMES,
-        tca.articleId AS articleId 
-      FROM
-        tagclouds AS tc
-        LEFT JOIN tagcloudarticles AS tca ON tc.id = tca.tagCloudId 
-      GROUP BY
-        tca.articleId 
-      ) AS mdt ON mdt.articleId = a.id 
-    ORDER BY
-      a.createdAt DESC 
-      LIMIT 0, 12 ;
+      c.createdAt DESC
 

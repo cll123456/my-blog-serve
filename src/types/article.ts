@@ -12,7 +12,9 @@ export interface IArticleListParam extends ParsedUrlQuery {
   /**
    * 通过标题模糊查询
    */
-  title: string,
+  title?: string,
+  // 标签id
+  tagCloudId?: string,
 }
 
 /**
