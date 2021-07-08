@@ -125,6 +125,8 @@ class ArticleService {
     // 获取文章的点赞，文章阅读，标签等
     const articleDetail = await sequelize.query(`
     SELECT
+    a.title as title,
+    a.createdAt as createdAt,
     a.content AS content,
     mid.tags AS tags,
     r.readNum AS readNum,
@@ -151,7 +153,8 @@ class ArticleService {
       u.nickName AS nickName,
       u.accounter AS accounter,
       u.email AS email,
-      u.avatar AS avatar 
+      u.avatar AS avatar,
+      u.createdAt as  createdAt
     FROM
       comments AS c,
       users AS u 

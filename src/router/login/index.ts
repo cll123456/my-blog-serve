@@ -25,3 +25,24 @@ router.get('/login/gitup', LoginController.loginByGitUp);
  */
 router.get('/gitup/oauth/callback', LoginController.gitUpCallBack)
 
+
+/**
+ * 获取code
+ */
+genOpenApiMark('/login/gitee', {
+  get: {
+    description: '使用gitee进行登录!',
+    summary: '使用gitee进行登录',
+    tags: ['登录模块'],
+    responses: {
+      200: {
+        description: '重定向gitee获取code',
+      }
+    }
+  }
+})
+router.get('/login/gitee', LoginController.loginByGitee);
+/**
+ * gitee的回调
+ */
+router.get('/gitee/oauth/callback', LoginController.giteeCallBack)
