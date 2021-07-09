@@ -16,8 +16,9 @@ class CommentController {
     const params = ctx.request.body as ICommentAddParams;
     // 调用模块来进行新增
     try {
-      await CommentService.add(params);
-      ctx.body = dataFormate('留言成功！', 200)
+     const res = await CommentService.add(params);
+      // 留言成功后，查询当前文章的所有留言并且返回
+      ctx.body = dataFormate(res[0], 200);
     } catch (err) {
       ctx.body = dataFormate(err, 500)
     }

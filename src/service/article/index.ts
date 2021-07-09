@@ -1,7 +1,7 @@
 import validator from "validator";
-import { ArticleModel } from "../../model/article";
 import { IArticleListParam, IHotArticleListParam } from "../../types/article";
 import sequelize from "../../utils/db";
+import CommentService from './../../service/comment'
 
 class ArticleService {
   /**
@@ -145,26 +145,7 @@ class ArticleService {
      JOIN readlikes AS r ON r.articleId = a.id
     `);
     // 获取文章的评论和用户
-    const comments = await sequelize.query(`
-      SELECT
-      c.content AS content,
-      c.pid AS pid,
-      c.id AS id,
-      u.nickName AS nickName,
-      u.accounter AS accounter,
-      u.email AS email,
-      u.avatar AS avatar,
-      u.createdAt as  createdAt
-    FROM
-      comments AS c,
-      users AS u 
-    WHERE
-      c.userId = u.id 
-      AND c.articleId = ${id} 
-      AND ISNULL( c.deletedAt ) 
-    ORDER BY
-      c.createdAt DESC
-    `)
+    const comments = await CommentService.findByArticleId(id);
 
     return {
       details: articleDetail[0][0],
