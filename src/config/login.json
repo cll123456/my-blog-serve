@@ -3,5 +3,5 @@
   "gitup_client_secrets": "2f021e4c1e795943edff0f1f57fa1c0d032d7ef8",
   "gitee_client_id": "372b924d5cb439d935c11a647967e95f3eed582b40c4b1dc74f1aa98fa0932af",
   "gitee_client_secrets": "d5b30217ee54988cf36ac5de619029cff9c6f0732e45995d62d013c0b62ed9ec",
-  "gitee_redirect_url": "http://localhost:3005/login"
+  "gitee_redirect_url": "http://blogs.chenliangliang.top/login"
 }

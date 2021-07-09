@@ -7,7 +7,7 @@ export const swaggerJson: ISwaggerJson = {
     "version": "1.0.0",
     "description": "API"
   },
-  "host": "localhost:5001",
+  "host": "localhost:9020",
   "basePath": "/",
   "paths": {
     // 所有的东西都往path中放

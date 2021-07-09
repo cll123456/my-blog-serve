@@ -1,11 +1,12 @@
 {
   "name": "my-blog-serve",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "my project of blog serve ",
   "main": "index.js",
   "scripts": {
     "build": "rd /s /q dist & tsc",
-    "dev": "nodemon --watch src -e ts --exec ts-node src/index.ts"
+    "dev": "nodemon --watch src -e ts --exec ts-node src/index.ts",
+    "pro": "node dist/index.js"
   },
   "keywords": [
     "blog",

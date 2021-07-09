@@ -1,6 +1,6 @@
 import { TagCloudModel } from "../../model/tagCloud";
 import { ITagCloudAddParam } from "../../types/tagCloud";
-import { pinyin, PINYIN_STYLE } from '@napi-rs/pinyin';
+// import { pinyin, PINYIN_STYLE } from '@napi-rs/pinyin';
 import validator from "validator";
 import sequelize from "../../utils/db";
 class TagCloudService {
@@ -15,8 +15,8 @@ class TagCloudService {
     }
     try {
       // 获取名字的code
-      const code = pinyin(data.name, { style: PINYIN_STYLE.Plain }).join('-') + '-' + Math.random().toString(32).slice(2, 9);
-      let addObj = { ...data, code: code };
+      // const code = pinyin(data.name, { style: PINYIN_STYLE.Plain }).join('-') + '-' + Math.random().toString(32).slice(2, 9);
+      let addObj = { ...data, code: Math.random().toString(32).substring(2,9) +'-' + Date.now() };
       // 判断数据存不存在
       const tagCloudRes = await TagCloudModel.findOne({
         where: {
