@@ -1,8 +1,8 @@
 {
-  "host": "47.115.62.24",
-  "port": "3306",
+  "host": "",
+  "port": "",
   "username": "root",
-  "password": "Pass47@word",
-  "database": "cll-blog-server",
+  "password": "",
+  "database": "",
   "dialect": "mysql"
 }
