@@ -25,7 +25,17 @@ class ArticleService {
       tagCloudsQL = `AND tca.tagCloudId = ${param.tagCloudId}`
     }
     // 查询总数
-    const totalPage = await sequelize.query(`select COUNT(*) as count FROM articles as a where a.title like '%${param.title}%'`);
+    // const totalPage = await sequelize.query(`select COUNT(*) as count FROM articles as a where a.title like '%${param.title}%'`);
+    const totalPage = await sequelize.query(`
+        SELECT
+        COUNT(*) AS count 
+      FROM
+        articles AS a
+        JOIN tagcloudarticles tca ON a.id = tca.articleId 
+      WHERE
+        a.title LIKE '%${param.title}%' 
+       ${tagCloudsQL}
+        `);
     // 查询分页数据
     const pageData = await sequelize.query(
       `
